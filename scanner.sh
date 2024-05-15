@@ -134,6 +134,18 @@ find /tmp/ /var/tmp/ /dev/shm/ /var/www/ -type d -user "$webuser" -group "$webus
 log "Directory scan complete"
 log ""
 
+
+#chkrootkit install
+
+wget -O /home/contegixadmin/chkrootkit.tar.gz ftp://ftp.chkrootkit.org/pub/seg/pac/chkrootkit.tar.gz
+tar -xzvpf /home/contegixadmin/chkrootkit.tar.gz
+
+#chkrootkit check
+
+log "Additionally, here are results from chkrootkit:"
+
+/home/contegixadmin/chkrootkit-0.58b/chkrootkit | grep -v "nothing found\|not found\|not infected\|not tested\|no suspect" >> "/opt/scripts/scan_results.txt"
+
 finish_time="$(date +%s)"
 
 # Send Results Via Mail - commented out for testing
